@@ -25,7 +25,7 @@ class AddContactPage extends StatelessWidget {
     if (response != 0) {
       CustomSnackbarWidget.show(
         context: context,
-        message: 'Contato atualizado com sucesso!',
+        message: 'Contact create with success!',
         color: Colors.green,
       );
 
@@ -33,7 +33,7 @@ class AddContactPage extends StatelessWidget {
     } else {
       CustomSnackbarWidget.show(
         context: context,
-        message: 'Error ao criar um novo contato',
+        message: 'Error creating a new contact!',
         color: Colors.red,
       );
     }
@@ -45,7 +45,7 @@ class AddContactPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Novo contato'),
+        title: const Text('New contact'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -56,7 +56,7 @@ class AddContactPage extends StatelessWidget {
               TextFormField(
                 controller: nameController,
                 decoration: const InputDecoration(
-                  labelText: 'Nome completo',
+                  labelText: 'Full name',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -66,7 +66,7 @@ class AddContactPage extends StatelessWidget {
                 inputFormatters: [maskAgency],
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  labelText: 'Agência',
+                  labelText: 'Agency',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -76,7 +76,7 @@ class AddContactPage extends StatelessWidget {
                 inputFormatters: [maskAccount],
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  labelText: 'Conta',
+                  labelText: 'Account',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -92,7 +92,7 @@ class AddContactPage extends StatelessWidget {
                       width: double.infinity,
                       child: Center(
                           child: Text(
-                        'Criar',
+                        'CREATE',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,

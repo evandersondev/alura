@@ -23,6 +23,7 @@ class ContatcItemWidget extends StatelessWidget {
           ),
         ),
       ),
+      trailing: const Icon(Icons.arrow_forward_ios_rounded),
       title: Text(
         contact.name.toUpperCase(),
         style: const TextStyle(

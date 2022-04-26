@@ -10,7 +10,10 @@ class BytebankApp extends StatelessWidget {
     return MaterialApp(
       title: 'Byte Bank',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: primaryColor),
+      theme: ThemeData(
+        primarySwatch: primaryColor,
+        scaffoldBackgroundColor: whiteColor,
+      ),
       home: const HomePage(),
     );
   }

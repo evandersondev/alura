@@ -1,16 +1,25 @@
-# bytebank
+<h1 align="center">BYTEBANK</h1>
 
-A new Flutter project.
+<h4 align="center">Projeto feito no Curso de Persistência com Flutter da Alura</h4>
 
-## Getting Started
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT">
+  </a>
+</p>
 
-This project is a starting point for a Flutter application.
+<hr />
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+[//]: # 'Add the features of your project here:'
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Features used in the Project.
+
+- Flutter v2.10.3
+- SQLFlite
+- Layout modificado
+
+### - LICENSE
+
+This project is licensed under the MIT License - see the <a href="https://opensource.org/licenses/MIT" target="_blank">LICENSE</a> page for details.

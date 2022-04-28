@@ -1,12 +1,6 @@
 import 'package:http_interceptor/http_interceptor.dart';
 
-class HttpClient {
-  static final instance = InterceptedClient.build(interceptors: [
-    LoggingInterceptor(),
-  ]);
-}
-
-class LoggingInterceptor implements InterceptorContract {
+class HttpInterceptor implements InterceptorContract {
   @override
   Future<RequestData> interceptRequest({required RequestData data}) async {
     print('Url: ${data.baseUrl}');

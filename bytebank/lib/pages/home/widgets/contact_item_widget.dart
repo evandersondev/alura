@@ -20,7 +20,9 @@ class ContatcItemWidget extends StatelessWidget {
       child: ListTile(
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => const AddTransactionPage(),
+            builder: (_) => AddTransactionPage(
+              contact: contact,
+            ),
           ),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -46,7 +48,6 @@ class ContatcItemWidget extends StatelessWidget {
           ),
         ),
         subtitle: Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Agência: ${contact.agency}, '),
             Text('Conta: ${contact.account}'),

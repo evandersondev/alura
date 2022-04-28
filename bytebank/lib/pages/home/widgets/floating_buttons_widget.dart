@@ -19,7 +19,7 @@ class FloatingButtonsWidget extends StatelessWidget {
         SquareButtomWidget(
           icon: Icons.description_outlined,
           iconSize: 28,
-          iconColor: darkColor,
+          iconColor: whiteColor,
           backgroundColor: secondaryColor,
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(

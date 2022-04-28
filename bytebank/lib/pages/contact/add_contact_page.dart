@@ -1,9 +1,12 @@
 import 'package:bytebank/database/contact_database.dart';
+import 'package:bytebank/pages/home/home_page.dart';
+import 'package:bytebank/themes/constants.dart';
 import 'package:bytebank/widgets/custom_snackbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../models/contact_model.dart';
+import '../../themes/colors_app.dart';
 import '../../utils/input_masks.dart';
 
 class AddContactPage extends StatelessWidget {
@@ -26,22 +29,26 @@ class AddContactPage extends StatelessWidget {
       CustomSnackbarWidget.show(
         context: context,
         message: 'Contact create with success!',
-        color: Colors.green,
+        color: successColor,
       );
 
-      Navigator.pop(context);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+        (route) => false,
+      );
     } else {
       CustomSnackbarWidget.show(
         context: context,
         message: 'Error creating a new contact!',
-        color: Colors.red,
+        color: errorColor,
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    const sizeHeight = SizedBox(height: 12);
+    const sizeHeight = SizedBox(height: paddingSize);
 
     return Scaffold(
       appBar: AppBar(

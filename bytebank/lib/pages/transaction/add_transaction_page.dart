@@ -49,7 +49,10 @@ class AddTransactionPage extends StatelessWidget {
           color: successColor,
           elevation: 0,
           child: InkWell(
-            onTap: () => createTransactionSubmit(context),
+            onTap: () async {
+              Navigator.pop(context);
+              await createTransactionSubmit(context);
+            },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 4),
               height: 56,
@@ -69,7 +72,7 @@ class AddTransactionPage extends StatelessWidget {
     );
   }
 
-  void createTransactionSubmit(BuildContext context) async {
+  Future<void> createTransactionSubmit(BuildContext context) async {
     if (valueController.text == '') return;
 
     final transaction = TransactionModel(

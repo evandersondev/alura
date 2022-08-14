@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+
 import 'package:bytebank/models/contact_model.dart';
 import 'package:bytebank/pages/transaction/add_transaction_page.dart';
 import 'package:bytebank/themes/colors_app.dart';
 import 'package:bytebank/themes/constants.dart';
-import 'package:flutter/material.dart';
 
 class ContatcItemWidget extends StatelessWidget {
   const ContatcItemWidget({
@@ -28,7 +29,7 @@ class ContatcItemWidget extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         visualDensity: VisualDensity.comfortable,
         leading: CircleAvatar(
-          backgroundColor: darkColor,
+          backgroundColor: primaryColor,
           child: Text(
             contact.name.split('').first,
             style: const TextStyle(
@@ -38,7 +39,7 @@ class ContatcItemWidget extends StatelessWidget {
           ),
         ),
         trailing: const Icon(
-          Icons.arrow_forward_ios_rounded,
+          Icons.transform_rounded,
           color: darkColor,
         ),
         title: Text(

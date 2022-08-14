@@ -15,7 +15,7 @@ class TransactionListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Transaction list'),
+          title: const Text('Transactions'),
         ),
         body: FutureBuilder<List<TransactionModel>>(
           future: TransactionAPi().findAll(),

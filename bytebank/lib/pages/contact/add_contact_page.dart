@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
+
+import 'package:uuid/uuid.dart';
+
 import 'package:bytebank/database/contact_database.dart';
-import 'package:bytebank/pages/home/home_page.dart';
+import 'package:bytebank/pages/main_page.dart';
 import 'package:bytebank/themes/constants.dart';
 import 'package:bytebank/widgets/custom_snackbar_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../models/contact_model.dart';
 import '../../themes/colors_app.dart';
@@ -34,7 +36,7 @@ class AddContactPage extends StatelessWidget {
 
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => const MainPage(pageIndex: 1)),
         (route) => false,
       );
     } else {

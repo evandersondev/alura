@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:giff_dialog/giff_dialog.dart';
 import 'package:toast/toast.dart';
 import 'package:uuid/uuid.dart';
 
+import 'package:bytebank/pages/main_page.dart';
 import 'package:bytebank/themes/colors_app.dart';
 
 import '../../models/contact_model.dart';
@@ -17,8 +17,8 @@ import '../../themes/constants.dart';
 import '../../utils/format_currency_to_double.dart';
 import '../../widgets/custom_alert_widget.dart';
 import '../../widgets/custom_progress_widget.dart';
+import '../../widgets/custom_snackbar_widget.dart';
 import '../../widgets/response_dialog.dart';
-import '../home/home_page.dart';
 
 class AddTransactionPage extends StatefulWidget {
   const AddTransactionPage({
@@ -115,7 +115,7 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
 
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => const MainPage(pageIndex: 2)),
         (route) => false,
       );
     }
@@ -131,7 +131,9 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
     });
 
     try {
-      final response = await TransactionAPi().save(transaction, password);
+      final response =
+          await TransactionAPi().save(context, transaction, password);
+
       return response;
     } on HttpException catch (e) {
       if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
@@ -182,24 +184,24 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
     //       return FailureDialog(message);
     //     });
 
-    // CustomSnackbarWidget.show(
-    //     context: context, message: message, color: errorColor);
+    CustomSnackbarWidget.show(
+        context: context, message: message, color: errorColor);
 
     // showToast(message, gravity: Toast.bottom);
 
-    showDialog(
-        context: context,
-        builder: (_) => NetworkGiffDialog(
-              image:
-                  Image.asset('lib/assets/giffs/error.gif', fit: BoxFit.cover),
-              title: const Text('OPS',
-                  textAlign: TextAlign.center,
-                  style:
-                      TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600)),
-              description: Text(message, textAlign: TextAlign.center),
-              entryAnimation: EntryAnimation.top,
-              onOkButtonPressed: () {},
-            ));
+    // showDialog(
+    //     context: context,
+    //     builder: (_) => NetworkGiffDialog(
+    //           image:
+    //               Image.asset('lib/assets/giffs/error.gif', fit: BoxFit.cover),
+    //           title: const Text('OPS',
+    //               textAlign: TextAlign.center,
+    //               style:
+    //                   TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600)),
+    //           description: Text(message, textAlign: TextAlign.center),
+    //           entryAnimation: EntryAnimation.top,
+    //           onOkButtonPressed: () {},
+    //         ));
   }
 
   void showToast(String msg, {int? duration = 5, int? gravity}) {
@@ -277,7 +279,7 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
                       width: double.infinity,
                       child: Center(
                           child: Text(
-                        'CREATE',
+                        'TRANSFER',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,

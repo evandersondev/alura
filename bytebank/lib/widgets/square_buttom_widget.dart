@@ -4,14 +4,12 @@ class SquareButtomWidget extends StatelessWidget {
   const SquareButtomWidget({
     Key? key,
     required this.icon,
-    required this.iconSize,
     required this.iconColor,
     required this.backgroundColor,
     required this.onTap,
   }) : super(key: key);
 
   final IconData icon;
-  final double iconSize;
   final Color iconColor;
   final Color backgroundColor;
   final VoidCallback onTap;
@@ -25,13 +23,13 @@ class SquareButtomWidget extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: SizedBox(
-          height: 60,
-          width: 60,
+          height: 54,
+          width: 54,
           child: Center(
             child: Icon(
               icon,
               color: iconColor,
-              size: iconSize,
+              size: 32,
             ),
           ),
         ),

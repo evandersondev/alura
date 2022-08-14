@@ -1,35 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:bytebank/pages/home/widgets/build_bar_widget.dart';
-import 'package:bytebank/pages/home/widgets/floating_buttons_widget.dart';
-import 'package:bytebank/themes/constants.dart';
-
 import '../../database/contact_database.dart';
 import '../../models/contact_model.dart';
+import '../../themes/colors_app.dart';
+import '../../themes/constants.dart';
+import '../../widgets/square_buttom_widget.dart';
 
+import 'add_contact_page.dart';
 import 'widgets/contact_item_widget.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class ContactListPage extends StatelessWidget {
+  const ContactListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ByteBank'),
-        centerTitle: true,
-        elevation: 1,
+      appBar: AppBar(title: const Text('Contacts')),
+      floatingActionButton: SquareButtomWidget(
+        icon: Icons.add_rounded,
+        iconColor: whiteColor,
+        backgroundColor: primaryColor,
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => AddContactPage(),
+          ),
+        ),
       ),
-      floatingActionButton: const FloatingButtonsWidget(),
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const BuildBarWidget(),
             FutureBuilder<List<ContactModel>>(
                 initialData: const [],
                 future: ContactDatabase.findAll(),

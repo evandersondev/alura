@@ -1,9 +1,10 @@
-import 'package:bytebank/themes/colors_app.dart';
-import 'package:bytebank/themes/constants.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bytebank/models/transaction_model.dart';
 import 'package:intl/intl.dart';
+
+import 'package:bytebank/models/transaction_model.dart';
+import 'package:bytebank/themes/colors_app.dart';
+import 'package:bytebank/themes/constants.dart';
 
 class TransactionItemWidget extends StatelessWidget {
   TransactionItemWidget({
@@ -25,7 +26,7 @@ class TransactionItemWidget extends StatelessWidget {
         visualDensity: VisualDensity.comfortable,
         leading: const Icon(
           Icons.monetization_on_rounded,
-          color: darkColor,
+          color: successColor,
         ),
         title: Text(
           transaction.contact.name.toUpperCase(),

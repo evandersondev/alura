@@ -1,10 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:bytebank/pages/home/widgets/build_bar_widget.dart';
 import 'package:bytebank/pages/home/widgets/floating_buttons_widget.dart';
 import 'package:bytebank/themes/constants.dart';
-import 'package:flutter/material.dart';
 
 import '../../database/contact_database.dart';
 import '../../models/contact_model.dart';
+
 import 'widgets/contact_item_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,9 +15,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Byte Bank'),
+        title: const Text('ByteBank'),
         centerTitle: true,
         elevation: 1,
       ),

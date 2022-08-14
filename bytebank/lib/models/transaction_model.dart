@@ -3,18 +3,23 @@ import 'dart:convert';
 import 'package:bytebank/models/contact_model.dart';
 
 class TransactionModel {
-  final double value;
+  final String id;
+  final double? value;
   final ContactModel contact;
+
   TransactionModel({
-    required this.value,
+    required this.id,
+    this.value,
     required this.contact,
   });
 
   TransactionModel copyWith({
+    String? id,
     double? value,
     ContactModel? contact,
   }) {
     return TransactionModel(
+      id: id ?? this.id,
       value: value ?? this.value,
       contact: contact ?? this.contact,
     );
@@ -23,6 +28,7 @@ class TransactionModel {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
+    result['id'] = id;
     result.addAll({'value': value});
     result.addAll({'contact': contact.toMap()});
 
@@ -31,6 +37,7 @@ class TransactionModel {
 
   factory TransactionModel.fromMap(Map<String, dynamic> map) {
     return TransactionModel(
+      id: map['id'],
       value: map['value']?.toDouble() ?? 0.0,
       contact: ContactModel.fromMap(map['contact']),
     );

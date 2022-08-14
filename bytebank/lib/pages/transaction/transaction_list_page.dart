@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
+
 import 'package:bytebank/pages/transaction/widgets/centered_message.dart';
 import 'package:bytebank/services/transaction_api.dart';
 import 'package:bytebank/themes/constants.dart';
-import 'package:flutter/material.dart';
 
 import '../../models/transaction_model.dart';
+
 import 'widgets/transaction_item_widget.dart';
 
 class TransactionListPage extends StatelessWidget {
@@ -16,7 +18,7 @@ class TransactionListPage extends StatelessWidget {
           title: const Text('Transaction list'),
         ),
         body: FutureBuilder<List<TransactionModel>>(
-          future: TransactionAPi.findAll(),
+          future: TransactionAPi().findAll(),
           initialData: const [],
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {

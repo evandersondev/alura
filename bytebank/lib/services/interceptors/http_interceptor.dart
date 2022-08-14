@@ -10,9 +10,10 @@ class HttpInterceptor implements InterceptorContract {
 
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
-    print('Url: ${data.url}');
-    print('Status Code: ${data.statusCode}');
-    print('Method: ${data.method}');
+    print(
+        'Url: \x1B[33m${data.url}\x1B[0m - StatusCode: \x1B[33m${data.statusCode}\x1B[0m');
+    print('Method: \x1B[33m${data.method}\x1B[0m');
+    print('Headers: \x1B[33m${data.headers.toString()}\x1B[0m');
     return data;
   }
 }

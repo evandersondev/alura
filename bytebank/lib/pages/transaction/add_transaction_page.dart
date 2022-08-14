@@ -1,6 +1,14 @@
-import 'package:bytebank/themes/colors_app.dart';
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:giff_dialog/giff_dialog.dart';
+import 'package:toast/toast.dart';
+import 'package:uuid/uuid.dart';
+
+import 'package:bytebank/themes/colors_app.dart';
 
 import '../../models/contact_model.dart';
 import '../../models/transaction_model.dart';
@@ -8,18 +16,28 @@ import '../../services/transaction_api.dart';
 import '../../themes/constants.dart';
 import '../../utils/format_currency_to_double.dart';
 import '../../widgets/custom_alert_widget.dart';
-import '../../widgets/custom_snackbar_widget.dart';
+import '../../widgets/custom_progress_widget.dart';
+import '../../widgets/response_dialog.dart';
 import '../home/home_page.dart';
 
-class AddTransactionPage extends StatelessWidget {
-  AddTransactionPage({
+class AddTransactionPage extends StatefulWidget {
+  const AddTransactionPage({
     Key? key,
     required this.contact,
   }) : super(key: key);
 
   final ContactModel contact;
+
+  @override
+  State<AddTransactionPage> createState() => _AddTransactionPageState();
+}
+
+class _AddTransactionPageState extends State<AddTransactionPage> {
+  final transactionId = const Uuid().v4();
   final valueController = TextEditingController();
   final passwordController = TextEditingController(text: '');
+
+  bool _isSending = false;
 
   Future<void> alertAuthenticateCofirm(BuildContext context) async {
     await CustomAlertWidget.show(
@@ -50,6 +68,7 @@ class AddTransactionPage extends StatelessWidget {
           elevation: 0,
           child: InkWell(
             onTap: () async {
+              FocusManager.instance.primaryFocus?.unfocus();
               Navigator.pop(context);
               await createTransactionSubmit(context);
             },
@@ -73,40 +92,126 @@ class AddTransactionPage extends StatelessWidget {
   }
 
   Future<void> createTransactionSubmit(BuildContext context) async {
-    if (valueController.text == '') return;
-
     final transaction = TransactionModel(
-      contact: contact,
+      id: transactionId,
+      contact: widget.contact,
       value: formatCurrencyToDouble(valueController.text),
     );
 
-    final response =
-        await TransactionAPi.save(transaction, passwordController.text);
+    final response = await send(
+      context,
+      transaction: transaction,
+      password: passwordController.text,
+    );
+
     if (response != null) {
-      CustomSnackbarWidget.show(
-        context: context,
-        message: 'Transaction done with success!',
-        color: successColor,
-      );
+      await showDialog(
+          context: context,
+          builder: (contextDialog) {
+            return const SuccessDialog(
+              'Transaction done with success!',
+            );
+          });
 
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
         (route) => false,
       );
-    } else {
-      CustomSnackbarWidget.show(
-        context: context,
-        message: 'Error creating a new contact!',
-        color: errorColor,
-      );
-      Navigator.pop(context);
     }
+  }
+
+  Future<TransactionModel?> send(
+    BuildContext context, {
+    required TransactionModel transaction,
+    required String password,
+  }) async {
+    setState(() {
+      _isSending = true;
+    });
+
+    try {
+      final response = await TransactionAPi().save(transaction, password);
+      return response;
+    } on HttpException catch (e) {
+      if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
+        await FirebaseCrashlytics.instance
+            .setCustomKey('exception', e.toString());
+        await FirebaseCrashlytics.instance
+            .setCustomKey('http_code', '${e.statusCode}');
+        await FirebaseCrashlytics.instance
+            .setCustomKey('http_body', transaction.toString());
+        await FirebaseCrashlytics.instance.recordError(e, null);
+      }
+
+      showFailureMessage(context, message: e.message);
+    } on TimeoutException catch (e) {
+      if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
+        await FirebaseCrashlytics.instance
+            .setCustomKey('exception', e.toString());
+        await FirebaseCrashlytics.instance
+            .setCustomKey('http_body', transaction.toString());
+        await FirebaseCrashlytics.instance.recordError(e, null);
+      }
+
+      showFailureMessage(context, message: e.message!);
+    } on Exception catch (e) {
+      if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
+        await FirebaseCrashlytics.instance
+            .setCustomKey('exception', e.toString());
+        await FirebaseCrashlytics.instance
+            .setCustomKey('http_body', transaction.toString());
+        await FirebaseCrashlytics.instance.recordError(e, null);
+      }
+
+      showFailureMessage(context);
+    } finally {
+      setState(() {
+        _isSending = false;
+        passwordController.text = '';
+      });
+    }
+    return null;
+  }
+
+  void showFailureMessage(BuildContext context,
+      {String message = 'Unknown error'}) {
+    // showDialog(
+    //     context: context,
+    //     builder: (contextDialog) {
+    //       return FailureDialog(message);
+    //     });
+
+    // CustomSnackbarWidget.show(
+    //     context: context, message: message, color: errorColor);
+
+    // showToast(message, gravity: Toast.bottom);
+
+    showDialog(
+        context: context,
+        builder: (_) => NetworkGiffDialog(
+              image:
+                  Image.asset('lib/assets/giffs/error.gif', fit: BoxFit.cover),
+              title: const Text('OPS',
+                  textAlign: TextAlign.center,
+                  style:
+                      TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600)),
+              description: Text(message, textAlign: TextAlign.center),
+              entryAnimation: EntryAnimation.top,
+              onOkButtonPressed: () {},
+            ));
+  }
+
+  void showToast(String msg, {int? duration = 5, int? gravity}) {
+    Toast.show(msg, duration: duration, gravity: gravity);
   }
 
   @override
   Widget build(BuildContext context) {
     const sizeHeight = SizedBox(height: paddingSize);
+    print('Transaction id: $transactionId');
+
+    ToastContext().init(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -116,11 +221,18 @@ class AddTransactionPage extends StatelessWidget {
           padding: const EdgeInsets.all(17),
           child: Column(
             children: [
+              Visibility(
+                visible: _isSending,
+                child: const Padding(
+                  padding: EdgeInsets.all(paddingSize * 2),
+                  child: CustomProgressWidget(message: 'Sending ...'),
+                ),
+              ),
               sizeHeight,
               TextFormField(
                 readOnly: true,
                 enabled: false,
-                initialValue: contact.name,
+                initialValue: widget.contact.name,
                 decoration: const InputDecoration(
                   labelText: 'Full name',
                   border: OutlineInputBorder(),
@@ -130,7 +242,7 @@ class AddTransactionPage extends StatelessWidget {
               TextFormField(
                 readOnly: true,
                 enabled: false,
-                initialValue: contact.account,
+                initialValue: widget.contact.account,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   labelText: 'Account',

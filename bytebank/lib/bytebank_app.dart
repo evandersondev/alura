@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'package:bytebank/pages/main_page.dart';
@@ -7,11 +8,21 @@ import 'package:bytebank/themes/colors_app.dart';
 
 import 'models/balance_model.dart';
 
+class LogObserver extends BlocObserver {
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    print('${bloc.runtimeType} > $change');
+    super.onChange(bloc, change);
+  }
+}
+
 class BytebankApp extends StatelessWidget {
   const BytebankApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Bloc.observer = LogObserver();
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<BalanceModel>(
@@ -26,7 +37,7 @@ class BytebankApp extends StatelessWidget {
           scaffoldBackgroundColor: scaffoldBackgroundColor,
           appBarTheme: const AppBarTheme(centerTitle: true),
         ),
-        home: const MainPage(),
+        home: const MainContainer(),
       ),
     );
   }

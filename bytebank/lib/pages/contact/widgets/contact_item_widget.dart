@@ -39,7 +39,7 @@ class ContatcItemWidget extends StatelessWidget {
           ),
         ),
         trailing: const Icon(
-          Icons.transform_rounded,
+          Icons.arrow_forward_rounded,
           color: darkColor,
         ),
         title: Text(

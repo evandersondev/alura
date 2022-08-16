@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'package:bytebank/models/balance_model.dart';
+import 'package:bytebank/themes/colors_app.dart';
 
+import '../../../models/name_model.dart';
 import '../../../themes/constants.dart';
 
 class BalanceCardWidget extends StatelessWidget {
@@ -18,9 +21,14 @@ class BalanceCardWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(
-            'My Balance'.toUpperCase(),
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+          BlocBuilder<NameCubit, String>(
+            builder: (context, name) {
+              return Text(
+                'Hi, $name your balance'.toUpperCase(),
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              );
+            },
           ),
           const SizedBox(height: paddingSize / 2),
           Consumer<BalanceModel>(
@@ -35,7 +43,11 @@ class BalanceCardWidget extends StatelessWidget {
               );
             },
           ),
-          const Divider(),
+          const SizedBox(height: paddingSize / 2),
+          Divider(
+            thickness: 2,
+            color: successColor.withOpacity(0.1),
+          ),
         ],
       ),
     );

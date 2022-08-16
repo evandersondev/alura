@@ -26,7 +26,7 @@ class AddContactPage extends StatelessWidget {
       account: accountController.text,
     );
 
-    final response = await ContactDatabase.save(contact);
+    final response = await ContactDatabase.instance.save(contact);
     if (response != 0) {
       CustomSnackbarWidget.show(
         context: context,

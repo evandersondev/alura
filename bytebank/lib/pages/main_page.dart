@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 
-import 'package:bytebank/models/pages_model.dart';
-import 'package:bytebank/pages/contact/contact_list_page.dart';
-import 'package:bytebank/pages/dashboard/dashboard_page.dart';
-import 'package:bytebank/pages/transaction/transaction_list_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-final pages = [
-  PagesModel(
-    page: const DashBoardPage(),
-    icon: Icons.dashboard,
-    title: 'Dashboard',
-  ),
-  PagesModel(
-    page: const ContactListPage(),
-    icon: Icons.perm_contact_calendar_rounded,
-    title: 'Contacts',
-  ),
-  PagesModel(
-    page: const TransactionListPage(),
-    icon: Icons.transform_rounded,
-    title: 'Transactions',
-  ),
-];
+import '../constants/pages.dart';
+import '../models/name_model.dart';
+
+class MainContainer extends StatelessWidget {
+  const MainContainer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: ((context) => NameCubit('Asafe')),
+      child: const MainPage(),
+    );
+  }
+}
 
 class MainPage extends StatefulWidget {
   const MainPage({
@@ -69,6 +63,9 @@ class _MainPageState extends State<MainPage> {
       currentIndex: _pageIndex,
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.white,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      iconSize: 26,
       selectedLabelStyle: const TextStyle(
         fontWeight: FontWeight.w500,
         fontSize: 12,

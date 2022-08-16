@@ -25,7 +25,7 @@ class TransactionItemWidget extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         visualDensity: VisualDensity.comfortable,
         leading: const Icon(
-          Icons.monetization_on_rounded,
+          Icons.monetization_on_outlined,
           color: successColor,
         ),
         title: Text(

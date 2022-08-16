@@ -8,7 +8,7 @@ import '../pages/transaction/transaction_list_page.dart';
 
 final pages = [
   PagesModel(
-    page: const DashBoardPage(),
+    page: DashboardContainer(),
     icon: Icons.roofing_rounded,
     title: 'Dashboard',
   ),

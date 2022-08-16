@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:bytebank/pages/main_page.dart';
 import 'package:bytebank/themes/colors_app.dart';
 
+import 'blocs/i18n/locale.dart';
 import 'models/balance_model.dart';
 
 class LogObserver extends BlocObserver {
@@ -37,7 +38,7 @@ class BytebankApp extends StatelessWidget {
           scaffoldBackgroundColor: scaffoldBackgroundColor,
           appBarTheme: const AppBarTheme(centerTitle: true),
         ),
-        home: const MainContainer(),
+        home: LocalizationContainer(child: const MainContainer()),
       ),
     );
   }

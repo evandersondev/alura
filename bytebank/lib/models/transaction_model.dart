@@ -4,14 +4,14 @@ import 'package:bytebank/models/contact_model.dart';
 
 class TransactionModel {
   final String id;
-  final double? value;
+  final double value;
   final ContactModel contact;
 
   TransactionModel({
     required this.id,
-    this.value,
+    required this.value,
     required this.contact,
-  });
+  }) : assert(value > 0);
 
   TransactionModel copyWith({
     String? id,

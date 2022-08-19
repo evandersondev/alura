@@ -48,7 +48,7 @@ class TransactionAPi {
 
     final balance = Provider.of<BalanceModel>(context, listen: false);
 
-    if (balance.balance <= 0 || balance.balance < transaction.value!) {
+    if (balance.balance <= 0 || balance.balance < transaction.value) {
       throw HttpException(_getMessage(402), 402);
     }
 

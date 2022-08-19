@@ -95,7 +95,7 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
     final transaction = TransactionModel(
       id: transactionId,
       contact: widget.contact,
-      value: formatCurrencyToDouble(valueController.text),
+      value: formatCurrencyToDouble(valueController.text)!,
     );
 
     final response = await send(

@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meetups/models/device.dart';
 import 'package:meetups/models/event.dart';
 
-const String baseUrl = 'http://192.168.100.41:8080/api';
+const String baseUrl = 'http://192.168.100.49:8080/api';
 
 Future<List<Event>> getAllEvents() async {
   final response = await http.get(Uri.parse('$baseUrl/events'));

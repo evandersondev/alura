@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/home/evandersonlaptop/www/alura/flutter_alura/push_notifications/flutter-notifications-start/build/shared_preferences_android/intermediates/res/merged/debug/layout/notification_template_icon_group.xml",
+        "source": "/home/evandersonlaptop/.gradle/caches/transforms-2/files-2.1/f910e53d48c9bb13b167634611201768/core-1.6.0/res/layout/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/home/evandersonlaptop/www/alura/flutter_alura/push_notifications/flutter-notifications-start/build/shared_preferences_android/intermediates/res/merged/debug/layout/custom_dialog.xml",
+        "source": "/home/evandersonlaptop/.gradle/caches/transforms-2/files-2.1/f910e53d48c9bb13b167634611201768/core-1.6.0/res/layout/custom_dialog.xml"
+    },
+    {
+        "merged": "/home/evandersonlaptop/www/alura/flutter_alura/push_notifications/flutter-notifications-start/build/shared_preferences_android/intermediates/res/merged/debug/layout/notification_action.xml",
+        "source": "/home/evandersonlaptop/.gradle/caches/transforms-2/files-2.1/f910e53d48c9bb13b167634611201768/core-1.6.0/res/layout/notification_action.xml"
+    },
+    {
+        "merged": "/home/evandersonlaptop/www/alura/flutter_alura/push_notifications/flutter-notifications-start/build/shared_preferences_android/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
+        "source": "/home/evandersonlaptop/.gradle/caches/transforms-2/files-2.1/f910e53d48c9bb13b167634611201768/core-1.6.0/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/home/evandersonlaptop/www/alura/flutter_alura/push_notifications/flutter-notifications-start/build/shared_preferences_android/intermediates/res/merged/debug/layout/notification_action_tombstone.xml",
+        "source": "/home/evandersonlaptop/.gradle/caches/transforms-2/files-2.1/f910e53d48c9bb13b167634611201768/core-1.6.0/res/layout/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/home/evandersonlaptop/www/alura/flutter_alura/push_notifications/flutter-notifications-start/build/shared_preferences_android/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
+        "source": "/home/evandersonlaptop/.gradle/caches/transforms-2/files-2.1/f910e53d48c9bb13b167634611201768/core-1.6.0/res/layout/notification_template_part_time.xml"
+    }
+]

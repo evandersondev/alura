@@ -29,4 +29,16 @@ describe('Login and register of the users alura pic', () => {
     cy.contains('button', 'Register').click()
     cy.contains('ap-vmessage', 'Mininum length is 8').should('be.visible')
   })
+
+  it.only('Should do login with user valid', () => {
+    cy.login('flavio', '123')
+    cy.contains('a', '(Logout)').should('be.visible')
+  })
+
+  it.only('Should don\'t login with user invalid', () => {
+    cy.login('evandersons', '123')
+    cy.on('window:alert', (str) => {
+      expect(str).to.equal('Invalid user name or password')
+    })
+  })
 })

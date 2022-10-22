@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "704499944798",
+    "project_id": "pushnotification-f3529",
+    "storage_bucket": "pushnotification-f3529.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704499944798:android:53a06ac5c3c87210cd13cf",
+        "android_client_info": {
+          "package_name": "br.com.alura.meetups.services"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704499944798-ngmdtbf05pbrurtut3me4ajq0nkb29u4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU5DrFZ6AmlHOlUjRwwAq5FulW_9r8zG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704499944798-ngmdtbf05pbrurtut3me4ajq0nkb29u4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "name": "Asafe",
+      "active": true,
+      "email": "yasmin@gmail.com",
+      "role": 3,
+      "createdAt": "2022-10-24T00:00:00.000Z",
+      "id": 1
+    }
+  ],
+  "roles": [
+    {
+      "id": 1,
+      "type": "ESTUDANTE"
+    },
+    {
+      "id": 2,
+      "type": "DOCENTE"
+    },
+    {
+      "id": 3,
+      "type": "COORDENACAO"
+    }
+  ]
+}

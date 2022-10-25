@@ -20,15 +20,21 @@ export interface IUser {
 }
 
 class UserApi extends RESTDataSource {
+  customResponse
+
   constructor() {
     super()
     this.baseURL = 'http://localhost:3000/'
+    this.customResponse = {
+      code: 200,
+      message: 'Operation completed successfully',
+    }
   }
 
   async getUsers() {
     const users = await this.get<IUser[]>('users')
 
-    return users.map(async (user: IUser) => {
+    return users.map(async user => {
       const role = await this.get<IRole>(`roles/${user.role}`)
       return {
         ...user,
@@ -52,27 +58,34 @@ class UserApi extends RESTDataSource {
     const id = users.length + 1
     const role = await this.get<IRole[]>(`roles?type=${user.role}`)
 
-    console.log(role[0].id)
-
-    return this.post('users', {
+    await this.post<IUser>('users', {
       ...user,
       id,
       role: role[0].id,
     })
+
+    return {
+      ...user,
+      role: role[0],
+    }
   }
 
-  async updateUser(user: IUser) {
+  async updateUser(id: Number, user: IUser) {
     const role = await this.get<IRole[]>(`roles?type=${user.role}`)
-
-    return this.put(`users/${user.id}`, {
+    await this.put(`users/${id}`, {
       ...user,
       role: role[0].id,
     })
+
+    return {
+      ...this.customResponse,
+      user: { ...user, role: role[0] },
+    }
   }
 
   async deleteUser(id: Number) {
     await this.delete(`users/${id}`)
-    return id
+    return this.customResponse
   }
 }
 

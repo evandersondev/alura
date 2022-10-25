@@ -1,5 +1,5 @@
-import UserApi from '../services/user'
-import { GraphQLScalarType, Kind } from 'graphql'
+import UserApi, { IUser } from '../services/user'
+import { GraphQLScalarType } from 'graphql'
 
 interface MyContext {
   dataSources: {
@@ -12,11 +12,8 @@ interface MyContext {
 }
 
 interface UserParams {
-  id: Number
-  name: string
-  active: boolean
-  email: string
-  role: Number
+  id?: Number
+  user: IUser
 }
 
 const resolvers = {
@@ -36,31 +33,35 @@ const resolvers = {
     users: async (_: any, __: any, { dataSources }: MyContext) => {
       return await dataSources.usersApi.getUsers()
     },
-    user: async (_: any, { id }: UserParams, { dataSources }: MyContext) => {
+    user: async (
+      _: any,
+      { user: { id } }: UserParams,
+      { dataSources }: MyContext,
+    ) => {
       return await dataSources.usersApi.getUserById(id)
     },
   },
   Mutation: {
     createUser: async (
       _: any,
-      user: UserParams,
+      { user }: UserParams,
       { dataSources }: MyContext,
     ) => {
       return await dataSources.usersApi.createUser(user)
     },
     updateUser: async (
       _: any,
-      user: UserParams,
+      { id, user }: UserParams,
       { dataSources }: MyContext,
     ) => {
-      return await dataSources.usersApi.updateUser(user)
+      return await dataSources.usersApi.updateUser(id!, user)
     },
     deleteUser: async (
       _: any,
       { id }: UserParams,
       { dataSources }: MyContext,
     ) => {
-      return await dataSources.usersApi.deleteUser(id)
+      return await dataSources.usersApi.deleteUser(id!)
     },
   },
 }
